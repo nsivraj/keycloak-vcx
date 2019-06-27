@@ -1,0 +1,13 @@
+#kc-page-title::after {
+  content: "to continue to";
+}
+
+.login-pf-header::after {
+  content: "HousingDB";
+  text-indent: -99999px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 50px;
+  background-image: url('https://images.unsplash.com/photo-1558037173-1cd1dd4c805b');
+}

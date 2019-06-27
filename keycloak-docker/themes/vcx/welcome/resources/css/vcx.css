@@ -1,0 +1,136 @@
+html {
+  height: 100%;
+  font-size: 100%;
+}
+
+body {
+  background-image: url("../img/bg.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  color: #222;
+  cursor: auto;
+  font-family: "Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.element-invisible {
+  position: absolute !important;
+  clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+  clip: rect(1px, 1px, 1px, 1px);
+  overflow: hidden;
+  height: 1px;
+}
+
+.element-invisible.element-focusable:active,
+.element-invisible.element-focusable:focus {
+  position: static !important;
+  clip: auto;
+  overflow: visible;
+  height: auto;
+}
+
+p {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.page {
+  min-height:100%;
+  display:flex;
+  flex-direction: column;
+}
+
+main {
+  flex:1;
+}
+
+@media (min-width: 520px) {
+  main {
+    margin-top: 7.5rem;
+  }
+}
+
+main section.primary {
+  text-align: center;
+}
+
+section header {
+  background-color: #ececec;
+  padding-top: 2rem;
+  padding-right: .8rem;
+  padding-bottom: 1.2rem;
+  padding-left: .8rem;
+  border-bottom: 3px solid #27ae9d;
+  margin: -1rem -1rem 1rem -1rem;
+}
+
+section header img {
+  max-width: 226.64px;
+  height: auto;
+}
+
+section {
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2rem;
+  background-color: #fff;
+  border:1px solid #d8d8d8;
+  position: relative;
+  padding: 1rem;
+  padding-bottom: .01px;
+}
+
+footer {
+  margin-top: 3rem;
+  padding: 1rem;
+  background-color: #525252;
+  color: #EAEAEA;
+  display: flex;
+  flex-direction: row;
+}
+
+footer .copyright {
+  flex: 1;
+}
+
+footer a {
+  color: #27ae9d;
+}
+
+footer a:hover,
+footer a:focus {
+  color: #009e89;
+}
+
+.btn-primary {
+  display: block;
+  margin: 2rem -1rem 0 -1rem;
+  padding: 2rem;
+  font-size: 1.1rem;
+  border: 0;
+  background-color: #00ceb1;
+  background-image: linear-gradient(to bottom, #1cb8a1 0%, #19a692 100%);
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+  background-color: #19a692;
+  background-image: none;
+  color: #fff;
+}
+
+.btn-primary:active:hover, .btn-primary:active:focus {
+  background-color: #19a692;
+}

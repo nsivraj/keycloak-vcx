@@ -1,0 +1,30 @@
+https://www.keycloak.org/docs/latest/server_installation/index.html
+https://zaclittleberry.github.io/posts/installing-keycloak-with-digital-ocean-managed-postgres/
+https://github.com/keycloak/keycloak
+https://github.com/GazeDev/gaze_auth
+https://hub.docker.com/r/jboss/keycloak/
+
+These are the steps to get the local keycloak server running in docker on CentOS 7
+----------------------------------------------------------------------------------------
+1) Create a CentOS 7.6 x64 fresh install
+2) ssh root@138.68.14.235
+3) yum check-update
+4) yum clean all
+5) yum update
+6) reboot
+7) ssh root@138.68.14.235
+8) yum install git
+9) yum install docker
+10) Install docker-compose on CentOS 7 -- https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-centos-7
+    Change version 1.24.1 to the most recent version of docker-compose
+    curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    chmod +x /usr/local/bin/docker-compose
+    docker-compose --version
+11) git clone https://github.com/nsivraj/keycloak-vcx.git
+12) cd keycloak-vcx/install
+13) cp variables-local.env.example variables-local.env
+14) Edit variables-local.env to match your environment
+15) docker-compose --file=docker-compose-local.yml up keycloak-dev
+16)
+
+
