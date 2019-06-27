@@ -69,3 +69,5 @@ node_modules
 #############
 *offline-token.txt
 
+variables.env
+variables-local.env
