@@ -27,12 +27,12 @@ Please remember to provide a good summary, description as well as steps to repro
 
 To run Keycloak download the distribution from our [website](https://www.keycloak.org/downloads.html). Unzip and run:
 
-    bin/standalone.[sh|bat] 
+    bin/standalone.[sh|bat]
 
 Alternatively, you can use the Docker image by running:
 
     docker run jboss/keycloak
-    
+
 For more details refer to the [Keycloak Documentation](https://www.keycloak.org/documentation.html).
 
 
@@ -65,11 +65,6 @@ Before contributing to Keycloak please read our [contributing guidelines](CONTRI
 * [Keycloak Gatekeeper](https://github.com/keycloak/keycloak-gatekeeper) - Proxy service to secure apps and services with Keycloak
 * [Keycloak Node.js Connect](https://github.com/keycloak/keycloak-nodejs-connect) - Node.js adapter for Keycloak
 * [Keycloak Node.js Admin Client](https://github.com/keycloak/keycloak-nodejs-admin-client) - Node.js library for Keycloak Admin REST API
-
-
-## License
-
-* [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0)
 
 
 
@@ -254,7 +249,7 @@ that may be need for your applications.
 
  * `libindy.a` - This is a static library, which is compiled with NDK.
 
- [How to use instructions.](https://github.com/hyperledger/indy-sdk/blob/master/docs/android-build.md#usage)  
+ [How to use instructions.](https://github.com/hyperledger/indy-sdk/blob/master/docs/android-build.md#usage)
 
 {release channel} must be replaced with rc or stable to define corresponded release channel.
 See section "Release channels" for more details.
@@ -409,4 +404,9 @@ If your application needs to use Libindy from multiple processes you should keep
       (otherwise the command from a child thread will hang). Fork is only available on Unix.
     * Popen - spawns a new OS level process which will create its own child threads. Popen is cross-platform.
 
+
+
+## keycloak-vcx License
+
+* [AGPL License, Version 3.0](https://www.gnu.org/licenses/agpl-3.0.en.html)
 
