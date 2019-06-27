@@ -14,23 +14,41 @@ These are the steps to get the local keycloak server running in docker on CentOS
 6) reboot
 7) ssh root@138.68.14.235
 8) yum install git
-9) yum install docker
+9) Setup the keycloak user
+    ssh root@138.68.14.235
+    adduser --system --user-group --create-home --groups adm,wheel,systemd-journal keycloak
+    mkdir /home/keycloak/.ssh
+    chmod 0700 /home/keycloak/.ssh/
+    cp -Rfv /root/.ssh /home/keycloak/
+    chown -Rfv keycloak:keycloak /home/keycloak/.ssh
+    chown -R keycloak:keycloak /home/keycloak/
+    passwd keycloak
+    exit
+    ssh keycloak@138.68.14.235
+10) sudo yum install docker
 10) Install docker-compose on CentOS 7 -- https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-centos-7
     Change version 1.24.1 to the most recent version of docker-compose
-    curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-    chmod +x /usr/local/bin/docker-compose
+    sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
     docker-compose --version
 11) git clone https://github.com/nsivraj/keycloak-vcx.git
-12) cd keycloak-vcx/install
+12) cd keycloak-vcx/keycloak-docker
 13) cp variables-local.env.example variables-local.env
 14) Edit variables-local.env to match your environment
-15) docker-compose --file=docker-compose-local.yml up keycloak-dev
+15) sudo service docker start (or sudo service docker restart)
+16) docker-compose --file=docker-compose-local.yml up
 16)
 
 
 
+## sudo docker stop [CONTAINER_ID | CONTAINER_NAME]
+## sudo docker rm $(sudo docker ps -qa --no-trunc --filter "status=exited")
+## sudo docker ps --all
+## sudo docker images --all
+## sudo docker network create keycloak-network
+## sudo docker run -d --name postgres --net keycloak-network -e POSTGRES_DB=keycloak -e POSTGRES_USER=keycloak -e POSTGRES_PASSWORD=password postgres
+## sudo docker run --name keycloak --net keycloak-network jboss/keycloak -e DB_USER=keycloak -e DB_PASSWORD=password
+## sudo docker rmi $(sudo docker images --filter "dangling=true" -q --no-trunc)
+## sudo docker rmi $(sudo docker images --format '{{.Repository}}:{{.Tag}}' |grep 'keycloak')
+## sudo docker rmi $(sudo docker images --format '{{.Repository}}:{{.Tag}}' |grep 'postgres')
 
-
-## docker network create keycloak-network
-## docker run -d --name postgres --net keycloak-network -e POSTGRES_DB=keycloak -e POSTGRES_USER=keycloak -e POSTGRES_PASSWORD=password postgres
-## docker run --name keycloak --net keycloak-network jboss/keycloak -e DB_USER=keycloak -e DB_PASSWORD=password
