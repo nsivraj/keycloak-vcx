@@ -28,3 +28,9 @@ These are the steps to get the local keycloak server running in docker on CentOS
 16)
 
 
+
+
+
+## docker network create keycloak-network
+## docker run -d --name postgres --net keycloak-network -e POSTGRES_DB=keycloak -e POSTGRES_USER=keycloak -e POSTGRES_PASSWORD=password postgres
+## docker run --name keycloak --net keycloak-network jboss/keycloak -e DB_USER=keycloak -e DB_PASSWORD=password
