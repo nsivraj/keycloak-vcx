@@ -30,18 +30,18 @@ These are the steps to get the local keycloak server running in docker on CentOS
     exit
     ssh keycloak@138.68.14.235
 10) sudo yum install docker
-10) Install docker-compose on CentOS 7 -- https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-centos-7
+11) Install docker-compose on CentOS 7 -- https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-centos-7
     Change version 1.24.1 to the most recent version of docker-compose
     sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
     sudo chmod +x /usr/local/bin/docker-compose
     docker-compose --version
-11) git clone https://github.com/nsivraj/keycloak-vcx.git
-12) cd keycloak-vcx/keycloak-docker
-13) cp variables-local.env.example variables-local.env
-14) Edit variables-local.env to match your environment
-15) sudo service docker start (or sudo service docker restart)
-16) CURRENT_UID=$(id -u root):$(id -g root) docker-compose --file=docker-compose-local.yml up
-16)
+12) git clone https://github.com/nsivraj/keycloak-vcx.git
+13) cd keycloak-vcx/keycloak-docker
+14) cp variables-local.env.example variables-local.env
+15) Edit variables-local.env to match your environment
+16) sudo service docker start (or sudo service docker restart)
+17) CURRENT_UID=$(id -u root):$(id -g root) docker-compose --file=docker-compose-local.yml up
+18) 
 
 
 
