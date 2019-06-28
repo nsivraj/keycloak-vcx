@@ -14,8 +14,9 @@ services:
     env_file:
       - variables-local.env
     volumes:
-      - ./themes/vcx:/opt/jboss/keycloak/themes/vcx:Z
-      - ./themes/housingdb:/opt/jboss/keycloak/themes/housingdb:Z
+      - ./keycloak/themes/vcx:/opt/jboss/keycloak/themes/vcx:Z
+      - ./keycloak/themes/housingdb:/opt/jboss/keycloak/themes/housingdb:Z
+      - ./keycloak/standalone/configuration:/opt/jboss/keycloak/standalone/configuration:Z
     depends_on:
       - postgres
   postgres:
@@ -23,7 +24,7 @@ services:
     container_name: postgres-local
     user: ${CURRENT_UID}
     volumes:
-      - ./docker/postgres-data:/var/lib/postgresql/data:Z
+      - ./postgres/postgres-data:/var/lib/postgresql/data:Z
     env_file:
       - variables-local.env
     ports:

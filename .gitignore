@@ -71,3 +71,4 @@ node_modules
 
 variables.env
 variables-local.env
+keycloak-docker/postgres

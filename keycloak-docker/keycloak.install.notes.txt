@@ -41,9 +41,13 @@ These are the steps to get the local keycloak server running in docker on CentOS
 15) Edit variables-local.env to match your environment
 16) sudo service docker start (or sudo service docker restart)
 17) CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --file=docker-compose-local.yml up
+-----------------------------------------------------------------------------------------------------------
+Steps below MUST be re-run everytime you re-build your docker containers
+-----------------------------------------------------------------------------------------------------------
 18) CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --file=docker-compose-local.yml exec keycloak keycloak/bin/add-user-keycloak.sh -u admin -p 'password'
 19) CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --file=docker-compose-local.yml restart
 20) CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --file=docker-compose-local.yml exec keycloak keycloak/bin/kcadm.sh config credentials --server http://localhost:8080/auth --realm master --user admin
+21) CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --file=docker-compose-local.yml exec keycloak keycloak/bin/kcadm.sh get clients
 
 
 
@@ -53,6 +57,7 @@ These are the steps to get the local keycloak server running in docker on CentOS
 
 
 
+## docker cp 217da64120d9:/opt/jboss/keycloak/standalone/configuration.tar .
 ## docker stop [CONTAINER_ID | CONTAINER_NAME]
 ## docker rm $(docker ps -qa --no-trunc --filter "status=exited")
 ## docker ps --all
@@ -70,22 +75,21 @@ These are the steps to get the local keycloak server running in docker on CentOS
 
 
 
-
-see if I can curl http://127.0.0.1:9080/auth/
+see if keycloak has permission to the mounted file systems
 docker exec -it keycloak-local /bin/bash
-curl -o auth.index.html http://127.0.0.1:8080/auth/
+ls -al /opt/jboss/keycloak/themes/vcx
+ls -al /opt/jboss/keycloak/themes/housingdb
 
-see if I can curl (http://138.68.14.235:9080/auth/)
-
-
+see if postgres has permission to the mounted file systems
+docker exec -it postgres-local /bin/bash
+ls -al /var/lib/postgresql/data
 
 
 Probably not needed
 -------------------------------------------------------------------
-21) CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --file=docker-compose-local.yml exec keycloak keycloak/bin/kcadm.sh get clients
 22) Capture the "id" from the output of step 21) above for the "security-admin-console"
-    "id" : "4c3d45e1-4e6d-4a3c-8487-9da7a4a41132",
+    "id" : "e8d850d9-b043-452d-9639-3abf5f17d995",
     "clientId" : "security-admin-console",
-    CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --file=docker-compose-local.yml exec keycloak keycloak/bin/kcadm.sh update clients/4c3d45e1-4e6d-4a3c-8487-9da7a4a41132 -r master -s 'redirectUris=["https://accounts.gaze.dev/auth/*"]'
+    CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --file=docker-compose-local.yml exec keycloak keycloak/bin/kcadm.sh update clients/e8d850d9-b043-452d-9639-3abf5f17d995 -r master -s 'redirectUris=["https://accounts.gaze.dev/auth/*"]'
 
 
