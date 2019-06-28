@@ -40,8 +40,16 @@ These are the steps to get the local keycloak server running in docker on CentOS
 14) cp variables-local.env.example variables-local.env
 15) Edit variables-local.env to match your environment
 16) sudo service docker start (or sudo service docker restart)
-17) CURRENT_UID=$(id -u root):$(id -g root) docker-compose --file=docker-compose-local.yml up
-18) 
+17) CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --file=docker-compose-local.yml up
+18) CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --file=docker-compose-local.yml exec keycloak keycloak/bin/add-user-keycloak.sh -u admin -p 'password'
+19) CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --file=docker-compose-local.yml restart
+20) CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --file=docker-compose-local.yml exec keycloak keycloak/bin/kcadm.sh config credentials --server http://localhost:8080/auth --realm master --user admin
+
+
+
+
+
+
 
 
 
@@ -55,4 +63,29 @@ These are the steps to get the local keycloak server running in docker on CentOS
 ## docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
 ## docker rmi $(docker images --format '{{.Repository}}:{{.Tag}}' |grep 'keycloak')
 ## docker rmi $(docker images --format '{{.Repository}}:{{.Tag}}' |grep 'postgres')
+
+
+
+
+
+
+
+
+see if I can curl http://127.0.0.1:9080/auth/
+docker exec -it keycloak-local /bin/bash
+curl -o auth.index.html http://127.0.0.1:8080/auth/
+
+see if I can curl (http://138.68.14.235:9080/auth/)
+
+
+
+
+Probably not needed
+-------------------------------------------------------------------
+21) CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --file=docker-compose-local.yml exec keycloak keycloak/bin/kcadm.sh get clients
+22) Capture the "id" from the output of step 21) above for the "security-admin-console"
+    "id" : "4c3d45e1-4e6d-4a3c-8487-9da7a4a41132",
+    "clientId" : "security-admin-console",
+    CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --file=docker-compose-local.yml exec keycloak keycloak/bin/kcadm.sh update clients/4c3d45e1-4e6d-4a3c-8487-9da7a4a41132 -r master -s 'redirectUris=["https://accounts.gaze.dev/auth/*"]'
+
 

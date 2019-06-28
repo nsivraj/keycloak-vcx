@@ -10,11 +10,12 @@ services:
     ports:
       - "9080:8080"
       - "9443:8443"
+      - "9990:9990"
     env_file:
       - variables-local.env
     volumes:
-      - ./themes/vcx:/opt/jboss/keycloak/themes/vcx
-      - ./themes/housingdb:/opt/jboss/keycloak/themes/housingdb
+      - ./themes/vcx:/opt/jboss/keycloak/themes/vcx:Z
+      - ./themes/housingdb:/opt/jboss/keycloak/themes/housingdb:Z
     depends_on:
       - postgres
   postgres:
