@@ -18,10 +18,10 @@ services:
       - postgres
   postgres:
     image: postgres:10
-    user: ${CURRENT_UID}
     container_name: postgres-local
+    user: ${CURRENT_UID}
     volumes:
-      - ./docker/postgres-data:/var/lib/postgresql/data
+      - ./docker/postgres-data:/var/lib/postgresql/data:Z
     env_file:
       - variables-local.env
     ports:

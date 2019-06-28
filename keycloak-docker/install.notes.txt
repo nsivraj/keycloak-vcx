@@ -40,7 +40,7 @@ These are the steps to get the local keycloak server running in docker on CentOS
 13) cp variables-local.env.example variables-local.env
 14) Edit variables-local.env to match your environment
 15) sudo service docker start (or sudo service docker restart)
-16) CURRENT_UID=$(id -u):$(id -g) docker-compose --file=docker-compose-local.yml up
+16) CURRENT_UID=$(id -u root):$(id -g root) docker-compose --file=docker-compose-local.yml up
 16)
 
 
