@@ -3,6 +3,7 @@ services:
   keycloak:
     image: jboss/keycloak:6.0.1
     container_name: keycloak-local
+    user: ${CURRENT_UID}
     networks:
       - database
       - vcxauth
@@ -17,6 +18,7 @@ services:
       - postgres
   postgres:
     image: postgres:10
+    user: ${CURRENT_UID}
     container_name: postgres-local
     volumes:
       - ./docker/postgres-data:/var/lib/postgresql/data
