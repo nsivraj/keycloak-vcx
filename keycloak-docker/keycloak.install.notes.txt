@@ -73,6 +73,11 @@ Steps below MUST be re-run everytime you re-build your docker containers
 
 
 
+https://138.68.14.235:9443/auth/admin/{realm-name}/console
+https://138.68.14.235:9443/auth/admin/
+https://138.68.14.235:9443/auth/
+
+
 
 
 see if keycloak has permission to the mounted file systems

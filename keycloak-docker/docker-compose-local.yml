@@ -14,9 +14,9 @@ services:
     env_file:
       - variables-local.env
     volumes:
-      - ./keycloak/themes/vcx:/opt/jboss/keycloak/themes/vcx:Z
-      - ./keycloak/themes/housingdb:/opt/jboss/keycloak/themes/housingdb:Z
       - ./keycloak/standalone/configuration:/opt/jboss/keycloak/standalone/configuration:Z
+#      - ./keycloak/themes/vcx:/opt/jboss/keycloak/themes/vcx:Z
+#      - ./keycloak/themes/housingdb:/opt/jboss/keycloak/themes/housingdb:Z
     depends_on:
       - postgres
   postgres:
