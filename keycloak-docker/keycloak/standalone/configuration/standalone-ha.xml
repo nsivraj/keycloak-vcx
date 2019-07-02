@@ -33,6 +33,11 @@
     <management>
         <security-realms>
             <security-realm name="ManagementRealm">
+                <server-identities>
+                    <ssl>
+                        <keystore path="management.keystore" relative-to="jboss.server.config.dir" keystore-password="keystore_password" alias="server" key-password="key_password" generate-self-signed-certificate-host="localhost"/>
+                    </ssl>
+                </server-identities>
                 <authentication>
                     <local default-user="$local" skip-group-loading="true"/>
                     <properties path="mgmt-users.properties" relative-to="jboss.server.config.dir"/>
@@ -70,9 +75,13 @@
             </logger>
         </audit-log>
         <management-interfaces>
-            <http-interface security-realm="ManagementRealm">
+            <!-- <http-interface security-realm="ManagementRealm">
                 <http-upgrade enabled="true"/>
                 <socket-binding http="management-http"/>
+            </http-interface> -->
+            <http-interface security-realm="ManagementRealm">
+                <http-upgrade enabled="true"/>
+                <secure-socket-binding http="management-https"/>
             </http-interface>
         </management-interfaces>
         <access-control provider="simple">
