@@ -84,11 +84,11 @@ Steps below MUST be re-run everytime you re-build your docker containers
 
 ## ps ax|grep -i docker-compose
 ## kill -9 [pids-of-docker-compose]
-## docker cp 217da64120d9:/opt/jboss/keycloak/standalone/configuration.tar .
-## docker stop [CONTAINER_ID | CONTAINER_NAME]
 ## docker rm $(docker ps -qa --no-trunc --filter "status=exited")
 ## docker ps --all
 ## docker images --all
+## docker cp 217da64120d9:/opt/jboss/keycloak/standalone/configuration.tar .
+## docker stop [CONTAINER_ID | CONTAINER_NAME]
 ## docker network create keycloak-network
 ## docker run -d --name postgres --net keycloak-network -e POSTGRES_DB=keycloak -e POSTGRES_USER=keycloak -e POSTGRES_PASSWORD=password postgres
 ## docker run --name keycloak --net keycloak-network jboss/keycloak -e DB_USER=keycloak -e DB_PASSWORD=password
