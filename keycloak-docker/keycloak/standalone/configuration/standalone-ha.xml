@@ -72,7 +72,7 @@
         <management-interfaces>
             <http-interface security-realm="ManagementRealm">
                 <http-upgrade enabled="true"/>
-                <socket-binding http="management-http"/>
+                <socket-binding https="management-https"/>
             </http-interface>
         </management-interfaces>
         <access-control provider="simple">
@@ -632,10 +632,12 @@
     </profile>
     <interfaces>
         <interface name="management">
-            <inet-address value="${jboss.bind.address.management:127.0.0.1}"/>
+            <!-- <inet-address value="${jboss.bind.address.management:127.0.0.1}"/> -->
+            <any-address/>
         </interface>
         <interface name="public">
-            <inet-address value="${jboss.bind.address:127.0.0.1}"/>
+            <!-- <inet-address value="${jboss.bind.address:127.0.0.1}"/> -->
+            <any-address/>
         </interface>
         <interface name="private">
             <inet-address value="${jboss.bind.address.private:127.0.0.1}"/>
