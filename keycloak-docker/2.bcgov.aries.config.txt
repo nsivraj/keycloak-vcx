@@ -1,0 +1,25 @@
+1) Login as admin at https://138.68.14.235:9443/
+2) Create a new vcx (Verifiable Credential Exchange) realm
+3) Add a new "OpenID Connect v1.0" identity provider to the vcx realm
+   As part of this provider use these values...
+   a)
+
+
+
+4) cd /home/keycloak/keycloak-vcx/keycloak-docker/bcgovaries
+7) git clone git@github.com:nsivraj/pyop.git
+8) cd /home/keycloak/keycloak-vcx/keycloak-docker/bcgovaries/pyop
+9) CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --detach --file=docker-compose-bcgovaries.yml up
+10)
+
+
+
+
+
+9) cd /opt/jboss/bcgovaries/pyop/example
+10) Install the dependencies
+    yum install python-pip
+    pip install --upgrade pip
+    pip install -r requirements.txt
+11) Run the application
+    gunicorn wsgi:app -b :9090 --certfile https.crt --keyfile https.key

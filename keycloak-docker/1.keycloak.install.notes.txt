@@ -28,8 +28,8 @@ These are the steps to get the local keycloak server running in docker on CentOS
     sudo groupadd docker
     sudo gpasswd -a $USER docker
     exit
-    ssh keycloak@138.68.14.235
-10) sudo yum install docker
+10) ssh keycloak@138.68.14.235
+11) sudo yum install docker
 11) Install docker-compose on CentOS 7 -- https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-centos-7
     Change version 1.24.1 to the most recent version of docker-compose
     sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
@@ -40,22 +40,22 @@ These are the steps to get the local keycloak server running in docker on CentOS
 14) cp variables-local.env.example variables-local.env
 15) Edit variables-local.env to match your environment
 16) sudo service docker start (or sudo service docker restart)
-17) CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --file=docker-compose-local.yml up
+17) CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --detach --file=docker-compose-keycloak.yml up
 -----------------------------------------------------------------------------------------------------------
 Steps below MUST be re-run everytime you re-build your docker containers
 -----------------------------------------------------------------------------------------------------------
-18) CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --file=docker-compose-local.yml exec keycloak keycloak/bin/add-user-keycloak.sh -u admin -p 'password'
+18) CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --file=docker-compose-keycloak.yml exec keycloak keycloak/bin/add-user-keycloak.sh -u admin -p 'password'
 19) NOTE: this restart causes docker-compose to hang sometimes, then you have to force kill the docker-compose processes:
-    CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --file=docker-compose-local.yml restart
-20) CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --file=docker-compose-local.yml exec keycloak keycloak/bin/kcadm.sh config credentials --server http://localhost:8080/auth --realm master --user admin
-21) CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --file=docker-compose-local.yml exec keycloak keycloak/bin/kcadm.sh get clients
+    CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --file=docker-compose-keycloak.yml restart
+20) CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --file=docker-compose-keycloak.yml exec keycloak keycloak/bin/kcadm.sh config credentials --server http://localhost:8080/auth --realm master --user admin
+21) CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --file=docker-compose-keycloak.yml exec keycloak keycloak/bin/kcadm.sh get clients
     OR
     docker exec -it keycloak-local /bin/bash
     cd /opt/jboss/keycloak/bin
     ./kcadm.sh get clients
-24) Change the admin password by logging in as the admin user and changing the password
+22) Change the admin password by logging in as the admin user and changing the password
     https://138.68.14.235:9443/
-22) Now follow the steps below to add a user for the wildfly http management console
+23) Now follow the steps below to add a user for the wildfly http management console
     https://138.68.14.235:9993/
     docker exec -it keycloak-local /bin/bash
     cd /opt/jboss/keycloak/bin
@@ -85,19 +85,22 @@ Steps below MUST be re-run everytime you re-build your docker containers
     Is this new user going to be used for one AS process to connect to another AS process?
     e.g. for a slave host controller connecting to the master or for a Remoting connection for server to server EJB calls.
     yes/no? no
-23) Now login to the wildfly http management console with the admin user https://138.68.14.235:9993/
-
-
-
-
-26) Verify you can still get a list of the clients
-    CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --file=docker-compose-local.yml exec keycloak keycloak/bin/kcadm.sh get clients
+24) Now login to the wildfly http management console with the admin user https://138.68.14.235:9993/
 
 
 
 
 
 
+
+
+##############################################################################################
+## How to gracefully exit docker-compose up when you forget the -d option
+##############################################################################################
+## $ dc up         # oops, forgot the -d, can't detach gracefully
+## Ctrl+Z          # stop and send dc up to the background
+## $ kill -9 %1    # send SIGKILL **only** to this dc up
+##############################################################################################
 ## ps ax|grep -i docker-compose
 ## kill -9 [pids-of-docker-compose]
 ## docker rm $(docker ps -qa --no-trunc --filter "status=exited")
@@ -139,6 +142,6 @@ Probably not needed
 22) Capture the "id" from the output of step 21) above for the "security-admin-console"
     "id" : "e8d850d9-b043-452d-9639-3abf5f17d995",
     "clientId" : "security-admin-console",
-    CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --file=docker-compose-local.yml exec keycloak keycloak/bin/kcadm.sh update clients/e8d850d9-b043-452d-9639-3abf5f17d995 -r master -s 'redirectUris=["https://accounts.gaze.dev/auth/*"]'
+    CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --file=docker-compose-keycloak.yml exec keycloak keycloak/bin/kcadm.sh update clients/e8d850d9-b043-452d-9639-3abf5f17d995 -r master -s 'redirectUris=["https://accounts.gaze.dev/auth/*"]'
 
 

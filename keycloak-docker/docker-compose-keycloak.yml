@@ -10,9 +10,10 @@ services:
       - vcxauth
     ports:
       - "9443:8443"
-#      - "9990:9990"
       - "9993:9993"
+      - "9090:9090"
 #      - "9080:8080"
+#      - "9990:9990"
     env_file:
       - variables-local.env
     volumes:

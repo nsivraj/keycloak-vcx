@@ -1,0 +1,8 @@
+version: '3'
+services:
+  web:
+    build: .
+    container_name: bcgovaries-local
+    user: ${CURRENT_UID}
+    ports:
+      - "9090:9090"
