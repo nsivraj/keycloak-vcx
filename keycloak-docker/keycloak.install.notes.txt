@@ -49,8 +49,14 @@ Steps below MUST be re-run everytime you re-build your docker containers
     CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --file=docker-compose-local.yml restart
 20) CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --file=docker-compose-local.yml exec keycloak keycloak/bin/kcadm.sh config credentials --server http://localhost:8080/auth --realm master --user admin
 21) CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --file=docker-compose-local.yml exec keycloak keycloak/bin/kcadm.sh get clients
-22) Now follow the instructions at the wildfly http management console to add a user
-    http://138.68.14.235:9990/
+    OR
+    docker exec -it keycloak-local /bin/bash
+    cd /opt/jboss/keycloak/bin
+    ./kcadm.sh get clients
+24) Change the admin password by logging in as the admin user and changing the password
+    https://138.68.14.235:9443/
+22) Now follow the steps below to add a user for the wildfly http management console
+    https://138.68.14.235:9993/
     docker exec -it keycloak-local /bin/bash
     cd /opt/jboss/keycloak/bin
     ./add-user.sh
@@ -60,20 +66,30 @@ Steps below MUST be re-run everytime you re-build your docker containers
     (a): a
     Enter the details of the new user to add.
     Using realm 'ManagementRealm' as discovered from the existing property files.
-    Username : admin
-    User 'admin' already exists and is disabled, would you like to...
-    a) Update the existing user password and roles
-    b) Enable the existing user
-    c) Type a new username
-    (a): b
-    Updated user 'admin' to file '/opt/jboss/keycloak/standalone/configuration/mgmt-users.properties'
-    Updated user 'admin' to file '/opt/jboss/keycloak/domain/configuration/mgmt-users.properties'
-    Updated user 'admin' with groups null to file '/opt/jboss/keycloak/standalone/configuration/mgmt-groups.properties'
-    Updated user 'admin' with groups null to file '/opt/jboss/keycloak/domain/configuration/mgmt-groups.properties'
-23) Now login to the wildfly http management console with the admin user http://138.68.14.235:9990/
-24) Change the admin password by logging in as the admin user and changing the password
-    https://138.68.14.235:9443/
-25) Verify you can still login as the admin user at the management console http://138.68.14.235:9990/
+    Username : mgmtadmin
+    Password recommendations are listed below. To modify these restrictions edit the add-user.properties configuration file.
+    - The password should be different from the username
+    - The password should not be one of the following restricted values {root, admin, administrator}
+    - The password should contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), 1 non-alphanumeric symbol(s)
+    Password :
+    WFLYDM0101: Password should have at least 1 digit.
+    Are you sure you want to use the password entered yes/no? yes
+    Re-enter Password :
+    What groups do you want this user to belong to? (Please enter a comma separated list, or leave blank for none)[  ]:
+    About to add user 'mgmtadmin' for realm 'ManagementRealm'
+    Is this correct yes/no? yes
+    Added user 'mgmtadmin' to file '/opt/jboss/keycloak/standalone/configuration/mgmt-users.properties'
+    Added user 'mgmtadmin' to file '/opt/jboss/keycloak/domain/configuration/mgmt-users.properties'
+    Added user 'mgmtadmin' with groups  to file '/opt/jboss/keycloak/standalone/configuration/mgmt-groups.properties'
+    Added user 'mgmtadmin' with groups  to file '/opt/jboss/keycloak/domain/configuration/mgmt-groups.properties'
+    Is this new user going to be used for one AS process to connect to another AS process?
+    e.g. for a slave host controller connecting to the master or for a Remoting connection for server to server EJB calls.
+    yes/no? no
+23) Now login to the wildfly http management console with the admin user https://138.68.14.235:9993/
+
+
+
+
 26) Verify you can still get a list of the clients
     CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --file=docker-compose-local.yml exec keycloak keycloak/bin/kcadm.sh get clients
 
