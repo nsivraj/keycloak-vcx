@@ -49,8 +49,33 @@ Steps below MUST be re-run everytime you re-build your docker containers
     CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --file=docker-compose-local.yml restart
 20) CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --file=docker-compose-local.yml exec keycloak keycloak/bin/kcadm.sh config credentials --server http://localhost:8080/auth --realm master --user admin
 21) CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --file=docker-compose-local.yml exec keycloak keycloak/bin/kcadm.sh get clients
-
-
+22) Now follow the instructions at the wildfly http management console to add a user
+    http://138.68.14.235:9990/
+    docker exec -it keycloak-local /bin/bash
+    cd /opt/jboss/keycloak/bin
+    ./add-user.sh
+    What type of user do you wish to add?
+    a) Management User (mgmt-users.properties)
+    b) Application User (application-users.properties)
+    (a): a
+    Enter the details of the new user to add.
+    Using realm 'ManagementRealm' as discovered from the existing property files.
+    Username : admin
+    User 'admin' already exists and is disabled, would you like to...
+    a) Update the existing user password and roles
+    b) Enable the existing user
+    c) Type a new username
+    (a): b
+    Updated user 'admin' to file '/opt/jboss/keycloak/standalone/configuration/mgmt-users.properties'
+    Updated user 'admin' to file '/opt/jboss/keycloak/domain/configuration/mgmt-users.properties'
+    Updated user 'admin' with groups null to file '/opt/jboss/keycloak/standalone/configuration/mgmt-groups.properties'
+    Updated user 'admin' with groups null to file '/opt/jboss/keycloak/domain/configuration/mgmt-groups.properties'
+23) Now login to the wildfly http management console with the admin user http://138.68.14.235:9990/
+24) Change the admin password by logging in as the admin user and changing the password
+    https://138.68.14.235:9443/
+25) Verify you can still login as the admin user at the management console http://138.68.14.235:9990/
+26) Verify you can still get a list of the clients
+    CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --file=docker-compose-local.yml exec keycloak keycloak/bin/kcadm.sh get clients
 
 
 
