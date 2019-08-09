@@ -1,3 +1,13 @@
+1) cd /home/keycloak/keycloak-vcx/keycloak-docker/bcgovaries/pyop
+2) git init
+3) git pull git@github.com:nsivraj/pyop.git
+4) git remote add origin git@github.com:nsivraj/pyop.git
+5) git pull
+6) git branch --set-upstream-to=origin/master master
+5) CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --file=docker-compose-bcgovaries.yml up
+6)
+
+
 1) Login as admin at https://138.68.14.235:9443/
 2) Create a new vcx (Verifiable Credential Exchange) realm
 3) Add a new "OpenID Connect v1.0" identity provider to the vcx realm
@@ -6,11 +16,30 @@
 
 
 
-4) cd /home/keycloak/keycloak-vcx/keycloak-docker/bcgovaries
-7) git clone git@github.com:nsivraj/pyop.git
-8) cd /home/keycloak/keycloak-vcx/keycloak-docker/bcgovaries/pyop
-9) CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --detach --file=docker-compose-bcgovaries.yml up
-10)
+
+
+
+
+##############################################################################################
+## How to gracefully exit docker-compose up when you forget the -d option
+##############################################################################################
+## $ dc up         # oops, forgot the -d, can't detach gracefully
+## Ctrl+Z          # stop and send dc up to the background
+## $ kill -9 %1    # send SIGKILL **only** to this dc up
+##############################################################################################
+## ps ax|grep -i docker-compose
+## kill -9 [pids-of-docker-compose]
+## docker rm $(docker ps -qa --no-trunc --filter "status=exited")
+## docker ps --all
+## docker images --all
+## docker cp 217da64120d9:/opt/jboss/keycloak/standalone/configuration.tar .
+## docker stop [CONTAINER_ID | CONTAINER_NAME]
+## docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
+## docker rmi $(docker images --format '{{.Repository}}:{{.Tag}}' |grep 'pyop_web')
+## docker rmi $(docker images --all --format '{{.Repository}}:{{.Tag}}' |grep '<none>:<none>')
+
+
+
 
 
 

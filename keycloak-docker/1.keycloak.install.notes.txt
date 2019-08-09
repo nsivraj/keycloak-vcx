@@ -40,7 +40,7 @@ These are the steps to get the local keycloak server running in docker on CentOS
 14) cp variables-local.env.example variables-local.env
 15) Edit variables-local.env to match your environment
 16) sudo service docker start (or sudo service docker restart)
-17) CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --detach --file=docker-compose-keycloak.yml up
+17) CURRENT_UID=$(id -u root):$(id -g root) docker-compose --verbose --file=docker-compose-keycloak.yml up
 -----------------------------------------------------------------------------------------------------------
 Steps below MUST be re-run everytime you re-build your docker containers
 -----------------------------------------------------------------------------------------------------------
